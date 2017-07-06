@@ -1,0 +1,209 @@
+<div class="row">
+  <div class="col s12">
+    <div class="card">
+    <div class="card-content">
+      <div class="container">
+        <%= form_with(model: profile, local: true) do |form| %>
+        <div class='row'>
+          <div class='col s12'>
+          </div>
+        </div>
+
+          <div class="col s4">
+            <div class="card">
+              <div class="card-image">
+                <div class="profile-image-wrapper">
+                    <%= image_tag(@profile.image_url.to_s , class:"fit-image") %>
+                </div>
+        
+              </div>
+              <div class="card-action">
+                <label for="file-input">
+                  <a class="waves-effect waves-light btn">Upload</a>
+                </label>
+              <%= form.file_field :image, id:"file-input", hidden:true %>
+
+              </div>
+            </div>
+          </div>
+
+
+        <!-- Basic informtions -->
+        <div class="col s8">
+          <center><h5>Your name</h5></center>
+        <div class="col s6">
+          <div class='row'>
+            <div class="input-field col s12">
+              <%= form.text_field :firstname, id: :profile_firstname %>
+              <label for="firstname" class="<%= @profile.firstname.present? ? "active" : ""%>">Firstname</label>
+            </div>
+          </div>
+        </div>
+        <div class="col s6">
+          <div class='row'>
+            <div class="input-field col s12">
+              <%= form.text_field :lastname, id: :profile_lastname %>
+              <label for="lastname" class="<%= @profile.lastname.present? ? "active" : ""%>">Lastname</label>
+            </div>
+          </div>
+        </div>
+        <div class="col s12">
+          <div class='row'>
+            <div class="input-field col s12">
+              <%= form.text_field :nickname, id: :profile_nickname %>
+              <label for="nickname" class="<%= @profile.nickname.present? ? "active" : ""%>">Nickname</label>
+            </div>
+          </div>
+        </div>
+
+        <!-- LEFT PART -->
+        <center><h5>Personal Information</h5></center>
+
+        <div class="col s6">
+          <div class='row'>
+            <div class="input-field col s12">
+              <%= form.select :gender, options_gender,{} %>
+              <label for="nickname">Gender</label>
+            </div>
+          </div>
+          <div class='row'>
+            <div class="input-field col s12">
+              <%= form.number_field :age, id: :profile_age %>
+              <label for="age" class="<%= @profile.age.present? ? "active" : ""%>">Age</label>
+            </div>
+          </div>
+          <div class='row'>
+            <div class="input-field col s12">
+              <%= form.text_field :height, id: :height %>
+              <label for="height" class="<%= @profile.height.present? ? "active" : ""%>">Height</label>
+            </div>
+          </div>
+
+          <div class='row'>
+            <div class="input-field col s12">
+              <%= form.text_field :weight, id: :weight %>
+              <label for="weight" class="<%= @profile.weight.present? ? "active" : ""%>">Weight</label>
+            </div>
+          </div>
+          <div class='row'>
+            <div class="input-field col s12">
+              <%= form.select :religion, options_religion,{} %>
+              <label>Religion</label>
+            </div>
+          </div>
+          <div class='row'>
+            <div class="input-field col s12">
+              <%= form.select :education, options_education,{} %>
+              <label>Education</label>
+            </div>
+          </div>
+          <div class='row'>
+            <div class="input-field col s12">
+              <%= form.select :ethnic, options_ethnicity,{} %>
+              <label >Ethnicity</label>
+            </div>
+          </div>
+        </div>
+        <!-- RIGHT PART -->
+        <div class="col s6">
+          <div class='row'>
+            <div class="input-field col s12">
+              <%= form.select :hair_color, options_hair_color,{} %>
+              <label for="hair_color" >Hair color</label>
+            </div>
+          </div>
+          <div class='row'>
+            <div class="input-field col s12">
+              <%= form.select :eye_color, options_eye_color,{} %>
+
+              <label class="<%= @profile.eye_color.present? ? "active" : ""%>">Eye color</label>
+            </div>
+          </div>
+          <div class='row'>
+            <div class="input-field col s12">
+              <%= form.select :has_children, options_has_children,{} %>
+              <label>Has children</label>
+            </div>
+          </div>
+          <div class='row'>
+            <div class="input-field col s12">
+              <%= form.select :wants_children, options_wants_children,{} %>
+              <label >Wants children</label>
+            </div>
+          </div>
+          <div class='row'>
+            <div class="input-field col s12">
+              <%= form.select :smoking, options_smoking,{} %>
+              <label>Smoking</label>
+            </div>
+          </div>
+          <div class='row'>
+            <div class="input-field col s12">
+              <%= form.select :drinking, options_drinking, {} %>
+              <label for="drinking">Drinking</label>
+            </div>
+          </div>
+          <div class='row'>
+            <div class="input-field col s12">
+              <%= form.select :relationship_status, options_relationship_status,{} %>
+              <label>Relationship status</label>
+            </div>
+          </div>
+        </div>
+      </div>
+        <div class='row'>
+          <div class="input-field col s12">
+            <%= form.text_area :about, id: :profile_about, class: "materialize-textarea" %>
+            <label for="about" class="<%= @profile.about.present? ? "active" : ""%>">Tell Something about yourself</label>
+          </div>
+        </div>
+        <div class='row'>
+          <div class="input-field col s12">
+            <div class="field">
+              <label for="catchphrase" class="<%= @profile.catchphrase.present? ? "active" : ""%>">Your Catchphrase</label>
+              <%= form.text_area :catchphrase, id: :profile_catchphrase, class: "materialize-textarea"%>
+            </div>
+          </div>
+        </div>
+        <center><h4>Looking for </h4></center>
+        <div class="row">
+          <div class="input-field col s12">
+            <%= form.select :looking_gender, options_looking_gender, {} %>
+            <label >What Gender your looking for</label>
+          </div>
+        </div>
+        <div>
+        <div class="row">
+          <div class="input-field col s12">
+            <p>
+              <%= check_box_tag "profile[looking_for][]", 'Relationship', checked('Relationship'), id:"relationship" %>
+              <label for="relationship">Relationship</label>
+            </p>
+            <p>
+              <%= check_box_tag "profile[looking_for][]", 'Dating', checked('Dating'), id:"dating" %>
+              <label for="dating">Dating</label>
+            </p>
+            <p>
+
+              <%= check_box_tag "profile[looking_for][]", 'Friends', checked('Friends'), id:"friends" %>
+              <label for="friends">Friends</label>
+            </p>
+            <p>
+              <%= check_box_tag "profile[looking_for][]", 'Networking', checked('Networking'), id:"networking" %>
+              <label for="networking">Networking</label>
+            </p>
+        </div>
+        </div>
+        <center>
+          <div class='row'>
+            <div class="actions">
+              <%= form.submit "Submit", class:"btn waves-effect waves-light" %>
+            </div>
+          </div>
+        </center>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
