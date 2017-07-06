@@ -1,3 +1,6 @@
 entrypoint: bundle exec rackup -p 8080
 env: flex
 runtime: ruby
+
+env_variables:
+  SECRET_KEY_BASE: 9ccd99c432fca6271ad3b7c475d3ad0b726d154dc14c5dc15fb6e04f53da814c431c291d584a9004a10b9a233c9eaad73580e5f72e3451f31f183984f04acf35
