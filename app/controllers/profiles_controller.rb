@@ -13,6 +13,10 @@ class ProfilesController < ApplicationController
 
   end
 
+  def myprofile
+    @profile = Profile.where(user_id: current_user.id).first
+  end
+
   # GET /profiles/new
   def new
     @profile = Profile.new
@@ -20,6 +24,7 @@ class ProfilesController < ApplicationController
 
   # GET /profiles/1/edit
   def edit
+
   end
 
   # POST /profiles
@@ -41,8 +46,16 @@ class ProfilesController < ApplicationController
   # PATCH/PUT /profiles/1
   # PATCH/PUT /profiles/1.json
   def update
+
+    #gcloud = Gcloud.new "cloud-minute-gcs"
+    #storage = gcloud.storage
+    #bucket = storage.bucket "datesite-172909.appspot.com"
+    #file_url = params["profile"]["image"].tempfile.path
+    #bucket.create_file file_url
+
     respond_to do |format|
       if @profile.update(profile_params)
+        puts profile_params
         format.html { redirect_to @profile, notice: 'Profile was successfully updated.' }
         format.json { render :show, status: :ok, location: @profile }
       else
@@ -50,8 +63,23 @@ class ProfilesController < ApplicationController
         format.json { render json: @profile.errors, status: :unprocessable_entity }
       end
     end
-  end
+end
 
+  def update_profile_image
+    @profile = Profile.where(user_id: current_user.id).first
+
+    @profile.temp_url = params["profile"]["image"].tempfile.path
+    respond_to do |format|
+      if @profile.update(profile_params)
+        puts profile_params
+        format.html { redirect_to @profile, notice: 'Profile Picture was successfully updated.' }
+        format.json { render :show, status: :ok, location: @profile }
+      else
+        format.html { render :edit }
+        format.json { render json: @profile.errors, status: :unprocessable_entity }
+      end
+    end
+  end
   # DELETE /profiles/1
   # DELETE /profiles/1.json
   def destroy

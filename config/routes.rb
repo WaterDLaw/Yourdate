@@ -5,6 +5,8 @@ Rails.application.routes.draw do
 
   resources :users, only: [:index]
   resources :profiles
+  get '/myprofile', to: 'profiles#myprofile'
+  post '/profile_picture', to: 'profiles#update_profile_image'
 
   resources :personal_messages, only: [:new, :create]
   resources :conversations, only: [:index, :show]

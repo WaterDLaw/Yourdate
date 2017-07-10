@@ -1,0 +1,9 @@
+production:
+  cloud_name: "dmypiaxcg"
+  api_key: "454888461186743"
+  api_secret: "0qw35Tw0po8262XPHJRyaSaT-GA"
+
+development:
+  cloud_name: "dmypiaxcg"
+  api_key: "454888461186743"
+  api_secret: "0qw35Tw0po8262XPHJRyaSaT-GA"

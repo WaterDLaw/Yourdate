@@ -35,6 +35,12 @@ gem 'materialize-sass'
 gem 'material_icons'
 
 gem 'carrierwave'
+gem 'cloudinary'
+#gem 'gcloud'
+#gem 'fog'
+gem "font-awesome-rails"
+
+gem 'google-cloud-vision'
 
 gem 'jquery-rails'
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170705205004) do
+ActiveRecord::Schema.define(version: 20170708074753) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -64,6 +64,7 @@ ActiveRecord::Schema.define(version: 20170705205004) do
     t.string "looking_gender"
     t.text "looking_for", array: true
     t.string "image"
+    t.string "temp_url"
     t.index ["user_id"], name: "index_profiles_on_user_id"
   end
 

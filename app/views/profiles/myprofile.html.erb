@@ -1,0 +1,94 @@
+<div class="row">
+  <div class="col s12">
+
+    <div class="container">
+
+      <div class='row'>
+
+        <div class='col s12'>
+        </div>
+      </div>
+      <div class="col s4">
+        <h4><%= @profile.nickname %></h4>
+        <div class="card">
+          <div class="card-image">
+            <div class="profile-image-wrapper">
+              <%= image_tag(@profile.image_url.to_s , class:"fit-image") %>
+            </div>
+            <div class="card-content">
+              <center><h5>Personal Information</h5></center>
+              <table class="no-spacing"cellspacing="0">
+                <tr>
+                  <td>Firsname:</td>
+                  <td><%=@profile.firstname %></td>
+                </tr>
+                <tr>
+                  <td>Lastname:</td>
+                  <td><%= @profile.lastname %></td>
+                </tr>
+                <tr>
+                  <td>Age:</td>
+                  <td><%= @profile.age %></td>
+                </tr>
+                <tr>
+                  <td>Gender:</td>
+                  <td><%= @profile.gender %></td>
+                </tr>
+                <tr>
+                  <td>Height:</td>
+                  <td><%= @profile.height %></td>
+                </tr>
+                <tr>
+                  <td>Weight:</td>
+                  <td><%= @profile.weight %></td>
+                </tr>
+                <tr>
+                  <td>Hair color:</td>
+                  <td><%= @profile.hair_color %></td>
+                </tr>
+                <tr>
+                  <td>Eye color:</td>
+                  <td><%= @profile.eye_color %></td>
+                </tr>
+                <tr>
+                  <td>Ethnicity:</td>
+                  <td><%= @profile.ethnic %></td>
+                </tr>
+
+              </table>
+              <center><h5>Other Information</h5></center>
+              <table class="no-spacing">
+                <tr>
+                  <td>Education:</td>
+                  <td><%=@profile.education %></td>
+                </tr>
+                <tr>
+                  <td>Occupation:</td>
+                  <td><%=@profile.profession %></td>
+                </tr>
+                <tr>
+                  <td>Religion:</td>
+                  <td><%=@profile.religion %></td>
+                </tr>
+                <tr>
+                  <td>Smoking:</td>
+                  <td><%= @profile.smoking %></td>
+                </tr>
+                <tr>
+                  <td>Drinking:</td>
+                  <td><%= @profile.drinking %></td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col s8">
+
+      </div>
+
+    </div>
+  </div>
+
+</div>

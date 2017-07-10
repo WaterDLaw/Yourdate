@@ -1,9 +1,21 @@
 <div class="row">
   <div class="col s12">
+
+
     <div class="card">
     <div class="card-content">
       <div class="container">
         <%= form_with(model: profile, local: true) do |form| %>
+
+          <% if @profile.errors.any? %>
+            <% puts "has Errors" %>
+            <% @profile.errors.each do |attribute, message| %>
+              <p><%= attribute %></p>
+              <p><%= message %></p>
+            <% end %>
+
+          <% end %>
+
         <div class='row'>
           <div class='col s12'>
           </div>
@@ -13,17 +25,17 @@
             <div class="card">
               <div class="card-image">
                 <div class="profile-image-wrapper">
-                    <%= image_tag(@profile.image_url.to_s , class:"fit-image") %>
+
+                  <%= image_tag(@profile.image_url.to_s , class:"fit-image") %>
+
                 </div>
-        
-              </div>
-              <div class="card-action">
-                <label for="file-input">
-                  <a class="waves-effect waves-light btn">Upload</a>
-                </label>
-              <%= form.file_field :image, id:"file-input", hidden:true %>
 
               </div>
+
+                <div class="card-action">
+                  <a class="waves-effect waves-light btn" href="#ProfilePicture">Edit Profile Picture</a>
+                </div>
+
             </div>
           </div>
 
@@ -95,6 +107,12 @@
             <div class="input-field col s12">
               <%= form.select :education, options_education,{} %>
               <label>Education</label>
+            </div>
+          </div>
+          <div class='row'>
+            <div class="input-field col s12">
+              <%= form.text_field :profession%>
+              <label>Occupation</label>
             </div>
           </div>
           <div class='row'>
@@ -206,4 +224,45 @@
     </div>
   </div>
 </div>
+</div>
+
+<!-- Modal Structure -->
+<div id="ProfilePicture" class="modal modal-fixed-footer">
+  <%= form_for :profile, url: {action: "update_profile_image"} do |f| %>
+  <div class="modal-content">
+    <a class="modal-close close-modal-button"><i class="fa fa-close fa-4x"></i></a>
+    <h4>Change your Profile Picture</h4>
+      <div class="col s4">
+        <div class="card">
+          <div class="card-content">
+          <div id="imgPreview" class="profile-image-wrapper">
+
+          </div>
+        </div>
+      </div>
+      </div>
+      <div class="col s8">
+        <h5>Rules:</h5>
+        <ul>
+          <li>1. It has to be a picture of yourself.</li>
+          <li>2. Only pictures with your Face is allowed.</li>
+          <li>3. No pictures with more than one face.</li>
+          <li>3.No nudity, violence or any other inappropiate content is allowed.</li>
+        </ul>
+
+        <h5>Choose Gallery Picture (Not yet)</h5>
+
+      </div>
+  </div>
+  <div class="modal-footer">
+    <div class="actions">
+      <%= f.submit "Submit", class:"btn waves-effect waves-light"%>
+      <label for="file-input">
+        <a class="waves-effect waves-light btn" style="margin-right: 10px;" >Upload</a>
+      </label>
+      <%= f.file_field :image, id:"file-input", hidden:true , :required => 'required'  %>
+
+    </div>
+  </div>
+  <% end %>
 </div>
