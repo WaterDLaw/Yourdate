@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
 
+  resources :photographs
+  resources :galleries
+  get '/mygallery', to: 'galleries#mygallery'
   devise_for :users
 
 

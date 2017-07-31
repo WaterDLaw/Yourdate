@@ -1,7 +1,9 @@
 module ProfilesHelper
   # Helper method for the checkboxes
   def checked(area)
-    @profile.looking_for.include? area
+    unless @profile.looking_for.nil?
+      @profile.looking_for.include? area
+    end
   end
 
 

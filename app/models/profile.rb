@@ -6,8 +6,10 @@ class Profile < ApplicationRecord
 
   mount_uploader :image, ImageUploader
 
-  validates :firstname, presence: true
-  validate :test_val
+  attr_accessor :skip_test_val
+
+  validate :test_val, unless: :skip_test_val
+
 
   def test_val
 

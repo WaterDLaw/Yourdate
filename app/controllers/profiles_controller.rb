@@ -33,7 +33,7 @@ class ProfilesController < ApplicationController
     @profile = Profile.new(profile_params)
 
     respond_to do |format|
-      if @profile.save
+      if @profile.save(validate: false)
         format.html { redirect_to @profile, notice: 'Profile was successfully created.' }
         format.json { render :show, status: :created, location: @profile }
       else
@@ -47,11 +47,8 @@ class ProfilesController < ApplicationController
   # PATCH/PUT /profiles/1.json
   def update
 
-    #gcloud = Gcloud.new "cloud-minute-gcs"
-    #storage = gcloud.storage
-    #bucket = storage.bucket "datesite-172909.appspot.com"
-    #file_url = params["profile"]["image"].tempfile.path
-    #bucket.create_file file_url
+    #skip the google vision api since we only wanna update basic data
+    @profile.skip_test_val = true
 
     respond_to do |format|
       if @profile.update(profile_params)

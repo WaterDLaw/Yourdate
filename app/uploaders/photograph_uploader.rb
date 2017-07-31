@@ -1,4 +1,4 @@
-class ImageUploader < CarrierWave::Uploader::Base
+class PhotographUploader < CarrierWave::Uploader::Base
 
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick
@@ -6,7 +6,12 @@ class ImageUploader < CarrierWave::Uploader::Base
   include Cloudinary::CarrierWave
   # Choose what kind of storage to use for this uploader:
   process :convert => 'png'
+  # Choose what kind of storage to use for this uploader:
   #storage :file
+  # storage :fog
+  version :standard do
+    process :resize_to_fill => [200,350, :north]
+  end
 
   # Override the directory where uploaded files will be stored.
   # This is a sensible default for uploaders that are meant to be mounted:
@@ -14,19 +19,10 @@ class ImageUploader < CarrierWave::Uploader::Base
     "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
   end
 
-
-
-  version :standard do
-    process :resize_to_fill => [200,350, :north]
-  end
-
-  version :thumbnail do
-    resize_to_fit(50,50)
-  end
-
   def public_id
-    return "user_" + model.user_id.to_s + "/" + filename
+    return "user_" + model.gallery.user.id.to_s + "/" + filename
   end
+
 
   # For creating random file_names
   def filename

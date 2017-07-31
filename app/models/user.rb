@@ -10,9 +10,11 @@ class User < ApplicationRecord
    has_many :personal_messages, dependent: :destroy
 
    has_one :profile, dependent: :destroy
+   has_one :gallery, dependent: :destroy
 
    #make sure to create a profile after a user is created
    after_create :create_profile
+   after_create :create_gallery
 
    def name
      email.split('@')[0]
