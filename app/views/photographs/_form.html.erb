@@ -1,4 +1,4 @@
-<%= form_with(model: photograph, local: true) do |form| %>
+<%= form_with(model: photograph, local: true) do |f| %>
   <% if photograph.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(photograph.errors.count, "error") %> prohibited this photograph from being saved:</h2>
@@ -10,13 +10,38 @@
       </ul>
     </div>
   <% end %>
+  <div class="row">
+    <div id="photographs_upload" class="col s12">
+        <div class="col s3">
+          <%= f.file_field :image, id:"gallery-file-input", hidden:true , :required => 'required'  %>
+          <label for="gallery-file-input">
+            <a class="waves-effect waves-light btn" style="margin-right: 10px;" ><i class="small material-icons left">add_a_photo</i> Choose New File</a>
+          </label>
+        </div>
+        <div class="col s6">
+            <div id="file-name"></div>
+            <div id="preloader" class="preloader-wrapper small active" style="display:none">
+              <div class="spinner-layer spinner-blue-only">
+                <div class="circle-clipper left">
+                  <div class="circle"></div>
+                </div>
+                <div class="gap-patch">
+                  <div class="circle"></div>
+                </div>
+                <div class="circle-clipper right">
+                  <div class="cirlce"></div>
+                </div>
+              </div>
+            </div>
+        </div>
+        <div class="col s3">
+          <%= f.submit  id:"uploadButton", class:"btn waves-effect waves-light", style:"display:none;", value:"Upload" do %>
 
-  <div class="field">
-    <%= form.label :image %>
-    <%= form.file_field :image, id: :photograph_gallery_id %>
-  </div>
+            Upload
 
-  <div class="actions">
-    <%= form.submit %>
+          <% end %>
+        </div>
+
+    </div>
   </div>
 <% end %>

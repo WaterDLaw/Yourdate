@@ -24,4 +24,6 @@ class User < ApplicationRecord
      !Redis.new.get("user_#{self.id}_online").nil?
    end
 
+
+
 end

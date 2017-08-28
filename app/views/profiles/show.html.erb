@@ -14,7 +14,7 @@
         <div class="card">
           <div class="card-image">
             <div class="profile-image-wrapper">
-              <%= image_tag(@profile.image_url.to_s , class:"fit-image") %>
+              <%= has_profile_picture(@profile_picture)%>
             </div>
             <div class="card-content">
               <center><h5>Personal Information</h5></center>

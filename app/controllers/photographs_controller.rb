@@ -25,11 +25,14 @@ class PhotographsController < ApplicationController
   # POST /photographs.json
   def create
     @photograph = Photograph.new(photograph_params)
-    puts current_user.gallery
+
+    @photograph.temp_url = params["photograph"]["image"].tempfile.path
     @photograph.gallery_id = current_user.gallery.id
+    @photograph.profile_picture = false
+
     respond_to do |format|
       if @photograph.save
-        format.html { redirect_to @photograph, notice: 'Photograph was successfully created.' }
+        format.html { redirect_to mygallery_path, notice: 'Photograph was successfully created.' }
         format.json { render :show, status: :created, location: @photograph }
       else
         format.html { render :new }
@@ -52,14 +55,52 @@ class PhotographsController < ApplicationController
     end
   end
 
+  def change_profile_pic
+
+    puts "Got POST"
+
+    @profile = Profile.where(user_id: current_user.id).first
+
+    @current_profile_picture = Photograph.where(profile_picture: true).first
+    @current_profile_picture.update_attribute('profile_picture', false)
+
+    @new_profile_picture = Photograph.find(params[:photoId])
+    @new_profile_picture.update_attribute('profile_picture', true)
+  end
+
+  def upload_profile_pic
+
+    @profile = Profile.where(user_id: current_user.id).first
+
+    puts "START UPLOaD"
+
+    @photograph = Photograph.new(photograph_params)
+
+    @photograph.temp_url = params["photograph"]["image"].tempfile.path
+    @photograph.gallery_id = current_user.gallery.id
+    @photograph.profile_picture = true
+
+    #change the current profile_picture
+    @current_profile_picture = Photograph.where(profile_picture: true).first
+    unless @current_profile_picture.nil?
+      puts @current_profile_picture.profile_picture
+      @current_profile_picture.update_attribute('profile_picture', false)
+    end
+
+    if @photograph.save
+      redirect_back(fallback_location: edit_profile_path(current_user.profile.id))
+
+    else
+      redirect_back(fallback_location: edit_profile_path(current_user.profile.id))
+    end
+
+  end
+
   # DELETE /photographs/1
   # DELETE /photographs/1.json
   def destroy
     @photograph.destroy
-    respond_to do |format|
-      format.html { redirect_to photographs_url, notice: 'Photograph was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    redirect_back(fallback_location: mygallery_path)
   end
 
   private
@@ -70,6 +111,6 @@ class PhotographsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def photograph_params
-      params.require(:photograph).permit(:gallery_id, :image)
+      params.require(:photograph).permit(:gallery_id, :image, :profile_picture)
     end
 end

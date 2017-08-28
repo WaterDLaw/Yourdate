@@ -14,5 +14,15 @@ module ApplicationHelper
     content_tag :span, user.name,
                 class: "user-#{user.id} online_status #{'online' if user.online?}"
   end
-  
+
+
+  #helper for profile_picture
+  def has_profile_picture(picture)
+    if picture.nil?
+      image_tag 'default.png'
+    else
+      image_tag(picture.image_url.to_s, class: "fit-image")
+    end
+  end
+
 end

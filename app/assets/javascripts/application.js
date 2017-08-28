@@ -17,9 +17,3 @@
 //= require materialize-sprockets
 //= require cable
 //= require_tree .
-
-#imgPreview{
-  height: 400px;
-  weight: 80px;
-
-}
