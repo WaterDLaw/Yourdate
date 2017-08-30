@@ -1,9 +1,19 @@
-<div>
-  Chatting with <%= online_status conversation.with(current_user) %>
-  <br>
-  <em><%= conversation.personal_messages.last.body.truncate(50) %></em>
-  <br>
-  <%= link_to 'View conversation', conversation_path(conversation) %>
-  <hr>
 
+
+
+<div class="collection">
+  <a href="<%= conversation_path(conversation) %>" class="collection-item" style="max-height:100px">
+    <div class="row">
+      <div class="col s12">
+        <div class="col s2">
+          <%= get_thumbnail(conversation.author)%>
+        </div>
+        <div class="col s10">
+        <%= online_status conversation.with(current_user) %>
+        <br>
+        <em><%= conversation.personal_messages.last.body.truncate(50) %></em>
+      </div>
+    </div>
+    </div>
+  </a>
 </div>

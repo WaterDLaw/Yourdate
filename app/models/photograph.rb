@@ -12,6 +12,8 @@ class Photograph < ApplicationRecord
     where(gallery_id: gallery_id).where(profile_picture: true)
   end
 
+
+
   def test_val
 
     project_id = "datesite"

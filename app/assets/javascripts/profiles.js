@@ -76,3 +76,12 @@ $(document).on('turbolinks:load', function() {
 
 
 });
+
+$(document).on("turbolinks:before-cache", function() {
+
+  // Unhide the change picture button
+  $('#changeProfile').css("display", "none");
+  // hide the upload button
+  $('#uploadPicture').css("display", "none");
+
+})

@@ -11,8 +11,9 @@ class ProfilesController < ApplicationController
   # GET /profiles/1.json
   def show
     puts @profile.user.gallery.id
-    @profile_picture = Photograph.find_profile_picture(@profile.user.gallery.id).first
 
+    #@profile_picture = Photograph.find_profile_picture(@profile.user.gallery.id).first
+    @profile_picture = @profile.profile_picture.first
   end
 
   def myprofile

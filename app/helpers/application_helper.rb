@@ -25,4 +25,17 @@ module ApplicationHelper
     end
   end
 
+  #Function for getting the thumbnail image of a user
+  def get_thumbnail(user)
+
+    # Get the profile picture
+    profile_picture = Photograph.find_profile_picture(user.gallery.id).first
+
+    if profile_picture.nil?
+      image_tag 'default_url'
+    else
+      image_tag(profile_picture.image_url(:thumbnail).to_s, class: "fit-image circle")
+    end
+  end
+
 end
