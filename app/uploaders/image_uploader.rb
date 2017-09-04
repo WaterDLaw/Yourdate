@@ -15,8 +15,9 @@ class ImageUploader < CarrierWave::Uploader::Base
   end
 
 
+
   version :standard do
-    process :resize_to_fill => [200,350, :north]
+    process :resize_to_fill => [80,300, :north]
   end
 
   version :thumbnail do
@@ -24,16 +25,24 @@ class ImageUploader < CarrierWave::Uploader::Base
   end
 
   def public_id
-    return model.firstname + model.lastname + "ProfilePicture"
+    return "user_" + model.user_id.to_s + "/" + filename
+  end
+
+  # For creating random file_names
+  def filename
+    random_string
+  end
+
+  protected
+
+  def random_string
+    @string ||= "#{SecureRandom.urlsafe_base64}.gif"
   end
 
   # Provide a default URL as a default if there hasn't been a file uploaded:
-  # def default_url(*args)
-  #   # For Rails 3.1+ asset pipeline compatibility:
-  #   # ActionController::Base.helpers.asset_path("fallback/" + [version_name, "default.png"].compact.join('_'))
-  #
-  #   "/images/fallback/" + [version_name, "default.png"].compact.join('_')
-  # end
+  def default_url
+     "default.png"
+  end
 
   # Process files as they are uploaded:
   # process scale: [200, 300]

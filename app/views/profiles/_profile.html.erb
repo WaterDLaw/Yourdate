@@ -1,0 +1,20 @@
+<div class="col s3">
+
+  <div class="card">
+    <a href="<%= profile_path(profile.id)%>">
+      <div class="card-image">
+        <div class="profile-image-wrapper">
+          <%= has_profile_picture(profile.profile_picture.first) %>
+        </div>
+      </div>
+    </a>
+    <div class="card-content">
+        <p class="activator"><%= profile.age %>, <%= profile.nickname %><i class="material-icons right">more_vert</i></p>
+    </div>
+    <div class="card-reveal">
+      <span class="card-title grey-text">About<i class="material-icons right">close</i></span>
+      <p><%= profile.about %></p>
+    </div>
+  </div>
+
+</div>

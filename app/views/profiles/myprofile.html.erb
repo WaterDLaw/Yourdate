@@ -8,12 +8,12 @@
         <div class='col s12'>
         </div>
       </div>
-      <div class="col s4">
+      <div class="col s3">
         <h4><%= @profile.nickname %></h4>
         <div class="card">
           <div class="card-image">
             <div class="profile-image-wrapper">
-              <%= image_tag(@profile.image_url.to_s , class:"fit-image") %>
+              <%= has_profile_picture(@profile_picture) %>
             </div>
             <div class="card-content">
               <center><h5>Personal Information</h5></center>
@@ -84,7 +84,16 @@
         </div>
       </div>
 
-      <div class="col s8">
+      <div class="col s9">
+
+        <div class="col s12">
+          <h4>Recent Conversations</h4>
+          <%= render @conversations %>
+
+        </div>
+        <div class="col s12">
+          <h4>Recent Visitors</h4>
+        </div>
 
       </div>
 

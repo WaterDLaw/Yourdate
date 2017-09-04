@@ -1,6 +1,7 @@
 class ProfilesController < ApplicationController
   before_action :set_profile, only: [:show, :edit, :update, :destroy]
-
+  before_action :set_profile_picture, only: [:myprofile, :edit, :update, :destroy]
+  before_action :find_conversation!, only: [:show]
   # GET /profiles
   # GET /profiles.json
   def index
@@ -10,13 +11,18 @@ class ProfilesController < ApplicationController
   # GET /profiles/1
   # GET /profiles/1.json
   def show
-
+    #@profile_picture = Photograph.find_profile_picture(@profile.user.gallery.id).first
+    @profile_picture = @profile.profile_picture.first
+    @conversation = Conversation.between(current_user.id, @profile.user.id).first
+    puts current_user.id
+    puts @profile.user.id
+    @personal_message = PersonalMessage.new
   end
 
   def myprofile
     @profile = Profile.where(user_id: current_user.id).first
+    @conversations = Conversation.participating(current_user).order('updated_at ASC')
   end
-
   # GET /profiles/new
   def new
     @profile = Profile.new
@@ -30,8 +36,8 @@ class ProfilesController < ApplicationController
   # POST /profiles
   # POST /profiles.json
   def create
-    @profile = Profile.new(profile_params)
 
+    @profile = Profile.new(profile_params)
     respond_to do |format|
       if @profile.save
         format.html { redirect_to @profile, notice: 'Profile was successfully created.' }
@@ -46,12 +52,6 @@ class ProfilesController < ApplicationController
   # PATCH/PUT /profiles/1
   # PATCH/PUT /profiles/1.json
   def update
-
-    #gcloud = Gcloud.new "cloud-minute-gcs"
-    #storage = gcloud.storage
-    #bucket = storage.bucket "datesite-172909.appspot.com"
-    #file_url = params["profile"]["image"].tempfile.path
-    #bucket.create_file file_url
 
     respond_to do |format|
       if @profile.update(profile_params)
@@ -69,6 +69,7 @@ end
     @profile = Profile.where(user_id: current_user.id).first
 
     @profile.temp_url = params["profile"]["image"].tempfile.path
+
     respond_to do |format|
       if @profile.update(profile_params)
         puts profile_params
@@ -96,8 +97,21 @@ end
       @profile = Profile.find(params[:id])
     end
 
+    # Get the correct profile Picture
+    def set_profile_picture
+        @profile_picture = Photograph.find_profile_picture(current_user.gallery.id).first
+
+    end
+
+    def find_conversation!
+
+        @receiver = User.find_by(id: params[:id])
+        @conversation = Conversation.between(current_user.id, @profile.user.id).first
+
+    end
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def profile_params
-      params.require(:profile).permit(:user_id, :firstname, :lastname, :nickname, :age, :profession, :about, :catchphrase, :introduction, :gender,:height,:weight, :hair_color, :eye_color, :relationship_status, :religion, :has_children, :wants_children, :smoking, :drinking,:image, :wants_to_meet, :ethnic, :education, :looking_gender, looking_for: [])
+      params.require(:profile).permit(:user_id, :firstname, :lastname, :nickname, :age, :profession, :about, :catchphrase, :introduction, :gender,:height,:weight, :hair_color, :eye_color, :relationship_status, :religion, :has_children, :wants_children, :smoking, :drinking, :wants_to_meet, :ethnic, :education, :looking_gender, looking_for: [])
     end
 end

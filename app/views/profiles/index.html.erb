@@ -1,43 +1,9 @@
-<p id="notice"><%= notice %></p>
+<center><h4>Users</h4></center>
 
-<h1>Profiles</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>User</th>
-      <th>Firstname</th>
-      <th>Lastname</th>
-      <th>Nickname</th>
-      <th>Age</th>
-      <th>Profession</th>
-      <th>About</th>
-      <th>Catchphrase</th>
-      <th>Introduction</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @profiles.each do |profile| %>
-      <tr>
-        <td><%= profile.user %></td>
-        <td><%= profile.firstname %></td>
-        <td><%= profile.lastname %></td>
-        <td><%= profile.nickname %></td>
-        <td><%= profile.age %></td>
-        <td><%= profile.profession %></td>
-        <td><%= profile.about %></td>
-        <td><%= profile.catchphrase %></td>
-        <td><%= profile.introduction %></td>
-        <td><%= link_to 'Show', profile %></td>
-        <td><%= link_to 'Edit', edit_profile_path(profile) %></td>
-        <td><%= link_to 'Destroy', profile, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Profile', new_profile_path %>
+<div class="row">
+  <div class="col s2"></div>
+  <div class="col s8">
+    <%= render @profiles %>
+  </div>
+  <div class="col s2"></div>
+</div>
