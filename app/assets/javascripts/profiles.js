@@ -74,6 +74,20 @@ $(document).on('turbolinks:load', function() {
       })
     })
 
+    // Method for showing all messages
+    $(document).on('click', '#show_more_messages', function(event){
+      console.log("button clicked");
+      if($(this).text() == "More"){
+        $('#all_messages').css("display", "block");
+        $(this).text("Close");
+      }
+      else{
+        $('#all_messages').css("display", "none");
+        $(this).text("More");
+      }
+
+    })
+
 
 });
 

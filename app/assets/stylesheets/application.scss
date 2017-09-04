@@ -24,6 +24,18 @@
    margin-bottom: 2em;
  }
 
+ .message-wrapper{
+   background-color: #ee6e73;
+   border-radius: 25px;
+   height: auto;
+   width: auto;
+
+ }
+
+ .message-box {
+   background-color: #fff !important;
+ }
+
  #notification {
    position: fixed;
    right: 10px;
@@ -98,12 +110,24 @@
   cursor: pointer;
 }
 
+
 @media only screen and (min-width: 400px) {
     .masonry {
         -moz-column-count: 1;
         -webkit-column-count: 1;
         column-count: 1;
     }
+
+}
+
+@media only screen and (max-width: 400px) {
+    .masonry {
+        -moz-column-count: 1;
+        -webkit-column-count: 1;
+        column-count: 1;
+    }
+
+
 }
 
 @media only screen and (min-width: 700px) {

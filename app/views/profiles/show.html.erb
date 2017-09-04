@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 <div class="row">
-  <div class="col s12">
+  <div class="col s12 m12 l12">
 
     <div class="container">
 
@@ -9,8 +9,8 @@
         <div class='col s12'>
         </div>
       </div>
-      <div class="col s4">
-        <h4><%= @profile.nickname %></h4>
+      <div class="col s12 m3 l3">
+
         <div class="card">
           <div class="card-image">
             <div class="profile-image-wrapper">
@@ -19,10 +19,16 @@
             <div class="card-content">
               <center><h5>Personal Information</h5></center>
               <table class="no-spacing"cellspacing="0">
+
+                <tr>
+                  <td>Nickname:</td>
+                  <td><%=@profile.nickname %></td>
+                </tr>
                 <tr>
                   <td>Firsname:</td>
                   <td><%=@profile.firstname %></td>
                 </tr>
+
                 <tr>
                   <td>Lastname:</td>
                   <td><%= @profile.lastname %></td>
@@ -85,9 +91,28 @@
         </div>
       </div>
 
-      <div class="col s8">
+        <div class="col s12 m9 l9">
+          <% if @conversation.nil? %>
+            <%= render :template => "personal_messages/new" %>
+          <% else %>
+            <%= render :template => "conversations/show"%>
+          <% end %>
+        </div>
 
-      </div>
+
+
+        <div class="gallery col s12 m9 l9">
+
+          <div class="masonry">
+          <% current_user.gallery.photographs.each do |photo| %>
+            <div class="masonry-item">
+                 <i class="masonry-item-icon small material-icons" style="color:#ef5350">add_circle</i>
+                 <%= image_tag(photo.image_url.to_s , class:"fit-image responsive-img", photoId: photo.id) %>
+            </div>
+          <% end %>
+        </div>
+        </div>
+    
 
     </div>
   </div>

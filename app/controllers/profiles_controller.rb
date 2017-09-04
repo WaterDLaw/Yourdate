@@ -1,6 +1,7 @@
 class ProfilesController < ApplicationController
   before_action :set_profile, only: [:show, :edit, :update, :destroy]
   before_action :set_profile_picture, only: [:myprofile, :edit, :update, :destroy]
+  before_action :find_conversation!, only: [:show]
   # GET /profiles
   # GET /profiles.json
   def index
@@ -10,16 +11,17 @@ class ProfilesController < ApplicationController
   # GET /profiles/1
   # GET /profiles/1.json
   def show
-    puts @profile.user.gallery.id
-
     #@profile_picture = Photograph.find_profile_picture(@profile.user.gallery.id).first
     @profile_picture = @profile.profile_picture.first
+    @conversation = Conversation.between(current_user.id, @profile.user.id).first
+    puts current_user.id
+    puts @profile.user.id
+    @personal_message = PersonalMessage.new
   end
 
   def myprofile
     @profile = Profile.where(user_id: current_user.id).first
-
-    puts @profile_picture
+    @conversations = Conversation.participating(current_user).order('updated_at ASC')
   end
   # GET /profiles/new
   def new
@@ -101,6 +103,12 @@ end
 
     end
 
+    def find_conversation!
+
+        @receiver = User.find_by(id: params[:id])
+        @conversation = Conversation.between(current_user.id, @profile.user.id).first
+
+    end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def profile_params
