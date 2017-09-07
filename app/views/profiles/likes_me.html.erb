@@ -1,0 +1,15 @@
+<div class="container">
+  <div class="row">
+    <div class="col s12">
+      <ul class="collection">
+        <% @user_likes.each do |voter| %>
+          <li class="collection-item avatar">
+            <%= get_thumbnail(voter)%>
+            <span class="title"><%= voter.profile.nickname %></span>
+            <p><%= voter.profile.age %></p>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</div>

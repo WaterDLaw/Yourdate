@@ -10,9 +10,16 @@ Rails.application.routes.draw do
 
 
   resources :users, only: [:index]
-  resources :profiles
+  resources :profiles do
+    member do
+      get 'like'
+      get 'unlike'
+    end
+  end
   get '/myprofile', to: 'profiles#myprofile'
-
+  get '/i_like', to: 'profiles#i_like'
+  get '/likes_me', to: 'profiles#likes_me'
+  get '/mutual_likes', to: 'profiles#mutual_likes'
 
   resources :personal_messages, only: [:new, :create]
   resources :conversations, only: [:index, :show]

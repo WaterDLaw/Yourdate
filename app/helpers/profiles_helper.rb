@@ -7,7 +7,6 @@ module ProfilesHelper
   end
 
 
-
   # Helper methods for the selects
 
   def options_eye_color

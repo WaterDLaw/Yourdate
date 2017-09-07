@@ -31,6 +31,10 @@ gem 'jbuilder', '~> 2.5'
 # gem 'bcrypt', '~> 3.1.7'
 gem 'gemoji'
 
+# gem for likes
+gem 'acts_as_votable', '~> 0.10.0'
+
+
 gem 'materialize-sass'
 gem 'material_icons'
 
