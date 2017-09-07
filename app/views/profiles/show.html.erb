@@ -17,7 +17,16 @@
               <%= has_profile_picture(@profile_picture)%>
             </div>
             <div class="card-content">
+
+              <!-- like / unlike buttons -->
+              <% if current_user.liked? @profile %>
+                <center><a href="<%= unlike_profile_path(@profile.id)%>"id="likeButton" class="btn waves-effect waves-light"><i class="large material-icons left" style="color:#ef5350">favorite</i>Unlike</a></center>
+              <% else %>
+                <center><a href="<%= like_profile_path(@profile.id)%>"id="likeButton" class="btn waves-effect waves-light"><i class="large material-icons left" style="color:#ef5350">favorite</i>Like</a></center>
+              <% end %>
+
               <center><h5>Personal Information</h5></center>
+
               <table class="no-spacing"cellspacing="0">
 
                 <tr>
@@ -112,7 +121,7 @@
           <% end %>
         </div>
         </div>
-    
+
 
     </div>
   </div>

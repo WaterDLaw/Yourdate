@@ -85,16 +85,66 @@
       </div>
 
       <div class="col s9">
-
-        <div class="col s12">
-          <h4>Recent Conversations</h4>
-          <%= render @conversations %>
-
+        <div class="row">
+          <div class="col s12">
+            <h4>Recent Conversations</h4>
+            <%= render @conversations.limit(2) %>
+            <center><a href="<%=conversations_path %>" class="btn waves-effect waves-light">More</a></center>
+          </div>
         </div>
-        <div class="col s12">
-          <h4>Recent Visitors</h4>
-        </div>
+        <!-- Make a list for all likes -->
+        <div class="row">
+          <div class="col s12">
 
+            <ul class="tabs">
+              <li class="tab col s4"><a href="#likesMe">Likes Me</a></li>
+              <li class="tab col s4"><a href="#mutualLike">Mutual like</a></li>
+              <li class="tab col s4"><a href="#whoILike">Who i like</a></li>
+            </ul>
+            <!-- Here is a list of all people that likes the profile (max 5) -->
+            <div id="likesMe">
+              <ul class="collection">
+                <% @user_likes.each do |voter| %>
+                  <li class="collection-item avatar">
+                    <%= get_thumbnail(voter)%>
+                    <span class="title"><%= voter.profile.nickname %></span>
+                    <p><%= voter.profile.age %></p>
+                  </li>
+
+                <% end %>
+              </ul>
+              <center><a href="<%= likes_me_path %>" class="btn waves-effect waves-light">More</a></center>
+            </div>
+            <!-- Here is a list of the people who lick eachother -->
+            <div id="mutualLike">
+              <ul class="collection">
+                <% @user_mutual_likes.each do |voter| %>
+                  <li class="collection-item avatar">
+                    <%= get_thumbnail(voter.user)%>
+                    <span class="title"><%= voter.nickname %></span>
+                    <p><%= voter.age %></p>
+                  </li>
+
+                <% end %>
+              </ul>
+              <center><a href="<%= mutual_likes_path %>" class="btn waves-effect waves-light">More</a></center>
+            </div>
+            <div id="whoILike">
+              <ul class="collection">
+                <% @user_who_likes.each do |voter| %>
+                  <li class="collection-item avatar">
+                    <%= get_thumbnail(voter.user)%>
+                    <span class="title"><%= voter.nickname %></span>
+                    <p><%= voter.age %></p>
+                  </li>
+
+                <% end %>
+              </ul>
+              <center><a href="" class="btn waves-effect waves-light">More</a></center>
+            </div>
+
+          </div>
+        </div>
       </div>
 
     </div>

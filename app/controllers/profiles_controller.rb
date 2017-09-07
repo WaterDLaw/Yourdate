@@ -1,7 +1,14 @@
 class ProfilesController < ApplicationController
-  before_action :set_profile, only: [:show, :edit, :update, :destroy]
+  before_action :set_profile, only: [:show, :edit, :update, :destroy, :like, :unlike]
+  before_action :set_my_profile, only: [:myprofile, :likes_me, :i_like, :mutual_likes]
   before_action :set_profile_picture, only: [:myprofile, :edit, :update, :destroy]
   before_action :find_conversation!, only: [:show]
+  # before actions for likes
+  before_action :find_likes_me, only: [:myprofile, :likes_me]
+  before_action :find_who_i_like, only: [:myprofile, :i_like]
+  before_action :find_mutual_likes, only: [:myprofile, :mutual_likes]
+
+
   # GET /profiles
   # GET /profiles.json
   def index
@@ -14,15 +21,11 @@ class ProfilesController < ApplicationController
     #@profile_picture = Photograph.find_profile_picture(@profile.user.gallery.id).first
     @profile_picture = @profile.profile_picture.first
     @conversation = Conversation.between(current_user.id, @profile.user.id).first
-    puts current_user.id
-    puts @profile.user.id
+
     @personal_message = PersonalMessage.new
   end
 
-  def myprofile
-    @profile = Profile.where(user_id: current_user.id).first
-    @conversations = Conversation.participating(current_user).order('updated_at ASC')
-  end
+
   # GET /profiles/new
   def new
     @profile = Profile.new
@@ -91,10 +94,55 @@ end
     end
   end
 
+  def myprofile
+
+    @conversations = Conversation.participating(current_user).order('updated_at ASC')
+
+
+  end
+
+  def i_like
+
+  end
+
+  def likes_me
+
+  end
+
+  def mutual_likes
+
+  end
+
+  def like
+    puts "........................................................"
+    puts "i like you"
+    if @profile.liked_by current_user
+      respond_to do |format|
+        format.html {redirect_back(fallback_location: @profile)}
+        format.js
+      end
+    end
+  end
+
+  def unlike
+    puts "........................................................"
+    puts "i dont like you anymore"
+    if @profile.unliked_by current_user
+      respond_to do |format|
+        format.html {redirect_back(fallback_location: @profile)}
+        format.js
+      end
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_profile
       @profile = Profile.find(params[:id])
+    end
+
+    def set_my_profile
+      @profile = Profile.where(user_id: current_user.id).first
     end
 
     # Get the correct profile Picture
@@ -108,6 +156,26 @@ end
         @receiver = User.find_by(id: params[:id])
         @conversation = Conversation.between(current_user.id, @profile.user.id).first
 
+    end
+
+    def find_likes_me
+      # returns users array
+      @user_likes = @profile.votes_for.voters
+    end
+
+    def find_who_i_like
+      # returns profiles array
+      @user_who_likes = current_user.find_voted_items
+    end
+
+    def find_mutual_likes
+      @user_mutual_likes = Array.new
+      @user_likes.each do |user|
+        if current_user.likes user.profile
+          puts "he likes too"
+          @user_mutual_likes.push(user.profile)
+        end
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
