@@ -4,15 +4,14 @@ class ProfilesController < ApplicationController
   before_action :set_profile_picture, only: [:myprofile, :edit, :update, :destroy]
   before_action :find_conversation!, only: [:show]
   # before actions for likes
-  before_action :find_likes_me, only: [:myprofile, :likes_me]
+  before_action :find_likes_me, only: [:myprofile, :likes_me, :mutual_likes]
   before_action :find_who_i_like, only: [:myprofile, :i_like]
   before_action :find_mutual_likes, only: [:myprofile, :mutual_likes]
-
 
   # GET /profiles
   # GET /profiles.json
   def index
-    @profiles = Profile.all
+    @profiles = Profile.all.page params[:page]
   end
 
   # GET /profiles/1
@@ -102,15 +101,15 @@ end
   end
 
   def i_like
-
+    @user_who_likes = Kaminari.paginate_array(@user_who_likes).page(params[:page]).per(10)
   end
 
   def likes_me
-
+    @user_likes = Kaminari.paginate_array(@user_likes).page(params[:page]).per(10)
   end
 
   def mutual_likes
-
+    @user_mutual_likes = Kaminari.paginate_array(@user_mutual_likes).page(params[:page]).per(10)
   end
 
   def like
@@ -153,7 +152,7 @@ end
 
     def find_conversation!
 
-        @receiver = User.find_by(id: params[:id])
+        @receiver = Profile.where(id: params[:id]).first.user
         @conversation = Conversation.between(current_user.id, @profile.user.id).first
 
     end
@@ -161,17 +160,21 @@ end
     def find_likes_me
       # returns users array
       @user_likes = @profile.votes_for.voters
+      puts "WHO LIKES ME"
+      puts @user_likes
     end
 
     def find_who_i_like
       # returns profiles array
-      @user_who_likes = current_user.find_voted_items
+      @user_who_likes = current_user.find_up_voted_items
+      puts "WHO I LIKE"
+      puts @user_who_likes
     end
 
     def find_mutual_likes
       @user_mutual_likes = Array.new
       @user_likes.each do |user|
-        if current_user.likes user.profile
+        if current_user.voted_for? user.profile
           puts "he likes too"
           @user_mutual_likes.push(user.profile)
         end

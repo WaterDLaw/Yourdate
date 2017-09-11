@@ -13,8 +13,8 @@ class PersonalMessagesController < ApplicationController
     @personal_message.conversation_id = @conversation.id
     @personal_message.save!
 
-    flash[:success] = "Your message was sent!"
-    redirect_to conversation_path(@conversation)
+
+    redirect_back(fallback_location: root_path)
   end
 
   private

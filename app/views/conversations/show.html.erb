@@ -25,9 +25,9 @@
 <div class="row">
   <div class="col s12">
       <ul class="collection">
-        <%= render @conversation.personal_messages.limit(1) %>
+        <%= render @conversation.personal_messages.limit(3) %>
         <div id="all_messages" style="display:none;">
-          <%= render @conversation.personal_messages.offset(2) %>
+          <%= render @conversation.personal_messages.offset(4) %>
         </div>
       </ul>
       <center><button id="show_more_messages" class="btn waves-effect waves-light">More</button></center>

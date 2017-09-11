@@ -1,10 +1,21 @@
-<h1>New message to <%= @receiver.name %></h1>
 
-<%= form_for @personal_message do |f| %>
-  <%= hidden_field_tag 'receiver_id', @receiver.id %>
+<div class="row message-wrapper">
 
-  <%= f.label :body %>
-  <%= f.text_area :body %>
+    <%= form_for @personal_message do |f| %>
+      <%= hidden_field_tag 'receiver_id', @receiver.id %>
+        <div class="col s10">
+        <div class="input-field">
+          <i class="material-icons prefix">mode_edit</i>
+          <label for="body">Message</label>
+          <%= f.text_area :body, class:"materialize-textarea message-box" %>
+        </div>
+      </div>
 
-  <%= f.submit %>
-<% end %>
+        <div class="col s2" >
+          <div class="input-field">
+            <button class="btn waves-effect waves-light" type="submit" name="action">Send</button>
+          </div>
+        </div>
+    <% end %>
+
+</div>
