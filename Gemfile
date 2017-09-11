@@ -38,6 +38,8 @@ gem 'acts_as_votable', '~> 0.10.0'
 gem 'materialize-sass'
 gem 'material_icons'
 
+gem 'kaminari'
+
 gem 'carrierwave'
 gem 'cloudinary'
 #gem 'gcloud'

@@ -104,7 +104,7 @@
             <!-- Here is a list of all people that likes the profile (max 5) -->
             <div id="likesMe">
               <ul class="collection">
-                <% @user_likes.each do |voter| %>
+                <% @user_likes[0..4].each do |voter| %>
                   <li class="collection-item avatar">
                     <%= get_thumbnail(voter)%>
                     <span class="title"><%= voter.profile.nickname %></span>
@@ -118,7 +118,7 @@
             <!-- Here is a list of the people who lick eachother -->
             <div id="mutualLike">
               <ul class="collection">
-                <% @user_mutual_likes.each do |voter| %>
+                <% @user_mutual_likes[0..4].each do |voter| %>
                   <li class="collection-item avatar">
                     <%= get_thumbnail(voter.user)%>
                     <span class="title"><%= voter.nickname %></span>
@@ -131,7 +131,7 @@
             </div>
             <div id="whoILike">
               <ul class="collection">
-                <% @user_who_likes.each do |voter| %>
+                <% @user_who_likes[0..4].each do |voter| %>
                   <li class="collection-item avatar">
                     <%= get_thumbnail(voter.user)%>
                     <span class="title"><%= voter.nickname %></span>
@@ -140,7 +140,7 @@
 
                 <% end %>
               </ul>
-              <center><a href="" class="btn waves-effect waves-light">More</a></center>
+              <center><a href="<%= i_like_path %>" class="btn waves-effect waves-light">More</a></center>
             </div>
 
           </div>

@@ -32,7 +32,7 @@ module ApplicationHelper
     profile_picture = Photograph.find_profile_picture(user.gallery.id).first
 
     if profile_picture.nil?
-      image_tag 'default_url'
+      image_tag 'default.png', class: "fit-image circle default-thumb"
     else
       image_tag(profile_picture.image_url(:thumbnail).to_s, class: "fit-image circle")
     end

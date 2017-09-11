@@ -113,7 +113,7 @@
         <div class="gallery col s12 m9 l9">
 
           <div class="masonry">
-          <% current_user.gallery.photographs.each do |photo| %>
+          <% @profile.user.gallery.photographs.each do |photo| %>
             <div class="masonry-item">
                  <i class="masonry-item-icon small material-icons" style="color:#ef5350">add_circle</i>
                  <%= image_tag(photo.image_url.to_s , class:"fit-image responsive-img", photoId: photo.id) %>
